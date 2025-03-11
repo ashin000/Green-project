@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Carbon Footprint Calculator</h1>
+        <form id="carbonForm">
+            <label for="transport">Daily Travel (km):</label>
+            <input type="number" id="transport" required><br>
+            
+            <label for="electricity">Electricity Use (kWh/month):</label>
+            <input type="number" id="electricity" required><br>
+
+            <label for="diet">Diet Type:</label>
+            <select id="diet">
+                <option value="1.5">Vegetarian</option>
+                <option value="2.0">Non-Vegetarian</option>
+                <option value="2.5">Heavy Meat Diet</option>
+            </select><br>
+
+            <button type="submit">Calculate</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
