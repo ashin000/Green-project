@@ -4,24 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carbon Footprint Calculator</title>
-    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .container {
+            background: #ffffff;
+            width: 380px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #27ae60;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #219150;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #ecf9f1;
+            color: #2c3e50;
+        }
+
+        #result p {
+            margin: 8px 0;
+        }
+    </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Carbon Footprint Calculator</h1>
-        <form id="carbonForm">
-            <label for="transport">Daily Travel (km):</label>
-            <input type="number" id="transport" required><br>
-            
-            <label for="electricity">Electricity Use (kWh/month):</label>
-            <input type="number" id="electricity" required><br>
 
-            <label for="diet">Diet Type:</label>
+        <form id="carbonForm">
+            <label for="transport">Daily Travel (km)</label>
+            <input type="number" id="transport" required>
+
+            <label for="electricity">Electricity Use (kWh / month)</label>
+            <input type="number" id="electricity" required>
+
+            <label for="diet">Diet Type</label>
             <select id="diet">
                 <option value="1.5">Vegetarian</option>
                 <option value="2.0">Non-Vegetarian</option>
                 <option value="2.5">Heavy Meat Diet</option>
-            </select><br>
+            </select>
 
             <button type="submit">Calculate</button>
         </form>
@@ -29,6 +99,35 @@
         <div id="result"></div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.getElementById("carbonForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            let transport = Number(document.getElementById("transport").value);
+            let electricity = Number(document.getElementById("electricity").value);
+            let diet = Number(document.getElementById("diet").value);
+
+            let transportFootprint = transport * 0.2 * 30;
+            let electricityFootprint = electricity * 0.85;
+            let dietFootprint = diet * 30;
+
+            let totalFootprint = transportFootprint + electricityFootprint + dietFootprint;
+
+            let suggestion = "";
+
+            if (totalFootprint > 500) {
+                suggestion = "⚠️ Your footprint is high. Consider public transport and reducing electricity usage.";
+            } else if (totalFootprint > 300) {
+                suggestion = "🙂 You're doing okay, but switching to energy-efficient habits can help.";
+            } else {
+                suggestion = "✅ Great job! Your carbon footprint is low.";
+            }
+
+            document.getElementById("result").innerHTML = `
+                <p><strong>Monthly Carbon Footprint:</strong> ${totalFootprint.toFixed(2)} kg CO₂</p>
+                <p>${suggestion}</p>
+            `;
+        });
+    </script>
 </body>
 </html>
